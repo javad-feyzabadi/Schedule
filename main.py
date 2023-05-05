@@ -67,3 +67,10 @@ class Job:
         self._schedule_next_run()
         return ret
     
+default_schedulaer = Scheduler()
+
+def every(interval = 1):
+    return default_schedulaer.every(interval)
+
+def run_pending():
+    return default_schedulaer.run_pending()
