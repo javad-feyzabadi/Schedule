@@ -111,6 +111,22 @@ class Job:
         self._schedule_next_run()
         return self
 
+    def at(self, time_str):
+        if self.unit not in ('hours', 'days'):
+            raise ScheduleValueError('Invalid Unit')
+        hour, minute = [t for t in time_str.split(':')]
+        minute = int(minute)
+        if not 0 < minute < 59:
+            raise ScheduleValueError('Invalid Minute')
+        if self.unit == 'days':
+            hour = int(hour)
+            if not 0 < hour < 23:
+                raise ScheduleValueError('Invalid Hour')
+        elif self.unit == 'hours':
+            hour = 0
+        self.at_time = datetime.time(hour=hour, minute=minute)
+        return self
+
     def _schedule_next_run(self):
         if self.unit not in  ('seconds', 'minutes','hours','days'):
             raise ScheduleValueError('Invalid Unit')
