@@ -86,7 +86,7 @@ class Job:
     def hour(self):
         # assert self.interval == 1
         if self.interval != 1 :
-            raise IntervalError('Use hours Instead Of hour')
+            raise IntervalError('Use hours Instead Of Hour')
         return self.hours
 
     @property
@@ -98,7 +98,7 @@ class Job:
     def day(self):
         # assert self.interval == 1
         if self.interval != 1 :
-            raise IntervalError('Use days Instead Of day')
+            raise IntervalError('Use days Instead Of Day')
         return self.days
 
     @property
@@ -118,7 +118,7 @@ class Job:
 
     def _schedule_next_run(self):
         # assert self.unit in ('seconds', 'minutes')
-        if self.unit not in  ('seconds', 'minutes'):
+        if self.unit not in  ('seconds', 'minutes','hours','days'):
             raise ScheduleValueError('Invalid Unit')
         self.period = datetime.timedelta(**{self.unit : self.interval})
         self.next_run = datetime.datetime.now() + self.period
