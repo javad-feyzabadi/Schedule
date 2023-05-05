@@ -36,6 +36,11 @@ class Scheduler:
             time.sleep(delay_seconds)
 
 
+    def next_run(self):
+        if not self.jobs:
+            return None
+        return min(self.jobs).next_run
+
 class Job:
     def __init__(self, interval):
         self.interval = interval
@@ -105,3 +110,6 @@ def run_pending():
 
 def run_all(delay_seconds = 0):
     default_schedulaer.run_all(delay_seconds)
+
+def next_run():
+    return default_schedulaer.next_run()

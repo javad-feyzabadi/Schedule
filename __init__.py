@@ -15,4 +15,5 @@ main.every(4).seconds.do(greeting)
 
 while True:
     main.run_all(1)
+    print(main.next_run())
     time.sleep(1)
