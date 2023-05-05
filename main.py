@@ -147,7 +147,7 @@ class Job:
                 now = datetime.datetime.now()
                 if self.unit == 'days' and self.at_time > now.time():
                     self.next_run = self.next_run - datetime.timedelta(days=1)
-                if self.unit == 'hours' and self.at_time.minute > now.minute():
+                elif self.unit == 'hours' and self.at_time.minute > now.minute:
                     self.next_run = self.next_run - datetime.timedelta(hours=1)
                 
 

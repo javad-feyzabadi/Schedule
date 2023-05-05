@@ -9,11 +9,9 @@ def greeting():
     print('how are you?')
 
 
-main.every(6).seconds.do(show, name = 'javad')
-main.every(4).seconds.do(greeting)
+main.every().hour.at(':58').do(show, name = 'javad')
 
 
 while True:
     main.run_pending()
-    print(main.idle_seconds())
     time.sleep(1)
