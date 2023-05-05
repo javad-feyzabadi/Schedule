@@ -132,6 +132,61 @@ class Job:
             raise ScheduleValueError('Invalid Unit')
         self.period = datetime.timedelta(**{self.unit : self.interval})
         self.next_run = datetime.datetime.now() + self.period
+        if self.at_time is not None:
+            if self.unit not in ('hours', 'days'):
+                raise ScheduleValueError('Invalid Unit')
+            kwargs = {
+                'minute':self.at_time.minute,
+                'second':0,
+                'microsecond':0,
+            }
+            if self.unit == 'days':
+                kwargs['hour'] = self.at_time.hour 
+            self.next_run = self.next_run.replace(**kwargs)
+            if not self.last_run:
+                now = datetime.datetime.now()
+                if self.unit == 'days' and self.at_time > now.time():
+                    self.next_run = self.next_run - datetime.timedelta(days=1)
+                if self.unit == 'hours' and self.at_time.minute > now.minute():
+                    self.next_run = self.next_run - datetime.timedelta(hours=1)
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def run(self):
         ret = self.job_func()
