@@ -52,6 +52,7 @@ class Job:
         self.job_func = None
         self.last_run = None
         self.next_run = None
+        self.at_time = None
         self.unit = None
         self.period = None
 
@@ -72,7 +73,6 @@ class Job:
 
     @property
     def minute(self):
-        # assert self.interval == 1
         if self.interval != 1 :
             raise IntervalError('Use Minutes Instead Of Minute')
         return self.minutes
@@ -84,7 +84,6 @@ class Job:
 
     @property
     def hour(self):
-        # assert self.interval == 1
         if self.interval != 1 :
             raise IntervalError('Use hours Instead Of Hour')
         return self.hours
@@ -96,7 +95,6 @@ class Job:
     
     @property
     def day(self):
-        # assert self.interval == 1
         if self.interval != 1 :
             raise IntervalError('Use days Instead Of Day')
         return self.days
@@ -106,9 +104,6 @@ class Job:
         self.unit = 'days'
         return self
     
-    
-
-
 
     def do(self, job_func, *args, **kwargs):
         self.job_func = partial(job_func, *args, **kwargs)
@@ -117,7 +112,6 @@ class Job:
         return self
 
     def _schedule_next_run(self):
-        # assert self.unit in ('seconds', 'minutes')
         if self.unit not in  ('seconds', 'minutes','hours','days'):
             raise ScheduleValueError('Invalid Unit')
         self.period = datetime.timedelta(**{self.unit : self.interval})
@@ -133,6 +127,9 @@ class Job:
     def should_run(self):
         return datetime.datetime.now() >= self.next_run
     
+
+
+
 default_schedulaer = Scheduler()
 
 def every(interval = 1):
