@@ -62,4 +62,8 @@ class Job:
         self.next_run = datetime.datetime.now() + self.period
 
     def run(self):
-        pass
+        ret = self.job_func()
+        self.last_run = datetime.datetime.now()
+        self._schedule_next_run()
+        return ret
+    
