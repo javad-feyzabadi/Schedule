@@ -9,11 +9,11 @@ def greeting():
     print('how are you?')
 
 
-main.every().second.do(show, name = 'javad')
+main.every(6).seconds.do(show, name = 'javad')
 main.every(4).seconds.do(greeting)
 
 
 while True:
-    main.run_all(1)
-    print(main.next_run())
+    main.run_pending()
+    print(main.idle_seconds())
     time.sleep(1)
