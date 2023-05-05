@@ -14,5 +14,5 @@ main.every(4).seconds.do(greeting)
 
 
 while True:
-    main.run_pending()
+    main.run_all(1)
     time.sleep(1)
