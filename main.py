@@ -8,7 +8,7 @@ class Scheduler:
         self.jobs = []
 
     def every(self, interval=1):
-        job = job(interval)
+        job = Job(interval)
         self.jobs.append(job)
         return job
 
@@ -52,7 +52,7 @@ class Job:
     
     def do(self, job_func, *args, **kwargs):
         self.job_func = partial(job_func, *args, **kwargs)
-        update_wrapper(self, job_func, job_func)
+        update_wrapper(self.job_func, job_func)
         self._schedule_next_run()
         return self
 
