@@ -5,7 +5,7 @@ import time
 def show(name):
     print(f'HELLO {name}')
 
-def greeting():
+def greeting(): 
     print('how are you?')
 
 

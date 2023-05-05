@@ -13,7 +13,7 @@ class Scheduler:
         return job
 
     def run_pending(self):
-        all_jobs = (job for job in self.jobs)
+        all_jobs = (job for job in self.jobs if job.should_run)
         for job in sorted(all_jobs):
             job.run()
     
@@ -66,6 +66,10 @@ class Job:
         self.last_run = datetime.datetime.now()
         self._schedule_next_run()
         return ret
+    
+    @property
+    def should_run(self):
+        return datetime.datetime.now() >= self.next_run
     
 default_schedulaer = Scheduler()
 
