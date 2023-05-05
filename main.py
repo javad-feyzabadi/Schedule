@@ -81,7 +81,35 @@ class Job:
     def minutes(self):
         self.unit = 'minutes'
         return self
+
+    @property
+    def hour(self):
+        # assert self.interval == 1
+        if self.interval != 1 :
+            raise IntervalError('Use hours Instead Of hour')
+        return self.hours
+
+    @property
+    def hours(self):
+        self.unit = 'hours'
+        return self
     
+    @property
+    def day(self):
+        # assert self.interval == 1
+        if self.interval != 1 :
+            raise IntervalError('Use days Instead Of day')
+        return self.days
+
+    @property
+    def days(self):
+        self.unit = 'days'
+        return self
+    
+    
+
+
+
     def do(self, job_func, *args, **kwargs):
         self.job_func = partial(job_func, *args, **kwargs)
         update_wrapper(self.job_func, job_func)
